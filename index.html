@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network Troubleshooter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Network Troubleshooter</h1>
+      <p class="lede">Describe the problem. The tool checks your connection one step at a time, from your device to the web, and shows where it breaks.</p>
+    </header>
+
+    <form id="ask" class="ask" autocomplete="off">
+      <label for="msg">What is wrong with your network?</label>
+      <div class="ask-row">
+        <input id="msg" type="text" placeholder="Example: the internet is slow">
+        <button type="submit" id="run">Run diagnosis</button>
+      </div>
+      <div class="chips">
+        <button type="button" class="chip">No internet</button>
+        <button type="button" class="chip">Internet is slow</button>
+        <button type="button" class="chip">Website will not open</button>
+      </div>
+    </form>
+
+    <section class="path-section" aria-label="Connection path">
+      <ol class="path" id="path">
+        <li class="node" data-step="adapter" data-status="idle" data-link="idle">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="node-text"><strong>This device</strong><span class="sub">Not checked yet</span></span>
+        </li>
+        <li class="node" data-step="gateway" data-status="idle" data-link="idle">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="node-text"><strong>Router</strong><span class="sub">Not checked yet</span></span>
+        </li>
+        <li class="node" data-step="internet" data-status="idle" data-link="idle">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="node-text"><strong>Internet</strong><span class="sub">Not checked yet</span></span>
+        </li>
+        <li class="node" data-step="dns" data-status="idle" data-link="idle">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="node-text"><strong>DNS</strong><span class="sub">Not checked yet</span></span>
+        </li>
+        <li class="node" data-step="web" data-status="idle" data-link="idle">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="node-text"><strong>Web</strong><span class="sub">Not checked yet</span></span>
+        </li>
+      </ol>
+    </section>
+
+    <section id="verdict" class="verdict" aria-live="polite" hidden>
+      <p class="intro" id="v-intro"></p>
+      <h2 id="v-title"></h2>
+      <p id="v-cause"></p>
+      <p id="v-note" class="note" hidden></p>
+      <div id="v-fixes" hidden>
+        <h3>What to try</h3>
+        <ol class="fixes" id="v-fix-list"></ol>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Checks</h2>
+      <ul class="steps" id="step-list">
+        <li class="empty">Run a diagnosis to see the result of each check here.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>Route to the internet</h2>
+      <p class="muted">Shows every router between you and 8.8.8.8, so you can see where delay or loss starts. It can take up to a minute.</p>
+      <button type="button" id="trace-btn" class="secondary">Trace route</button>
+      <pre id="trace-out" hidden></pre>
+    </section>
+
+    <section class="block">
+      <h2>Recent diagnoses</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Time</th><th>Result</th><th>Failed at</th><th>Latency</th><th>Packet loss</th></tr>
+          </thead>
+          <tbody id="history-body">
+            <tr><td colspan="5" class="empty">No diagnoses yet. Run one to start your history.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
